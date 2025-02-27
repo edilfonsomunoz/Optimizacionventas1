@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Ventas</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        img { max-width: 80%; height: auto; margin: 20px 0; }
+        .button { display: inline-block; padding: 10px 20px; margin: 10px;
+                  text-decoration: none; background-color: #007BFF; color: white;
+                  border-radius: 5px; cursor: pointer; border: none; }
+        .button:hover { background-color: #0056b3; }
+        .summary { text-align: left; max-width: 80%; margin: 20px auto;
+                   padding: 10px; border: 1px solid #ccc; border-radius: 5px;
+                   background-color: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <h1>Análisis de Ventas</h1>
+    
+    <h2>📈 Evolución de Ventas</h2>
+    <img src="{{ url_for('static', filename=img_paths.series_tiempo) }}" alt="Evolución de Ventas">
+    
+    <h2>📊 Descomposición de la Serie</h2>
+    <img src="{{ url_for('static', filename=img_paths.descomposicion) }}" alt="Descomposición de la Serie">
+    
+    <h2>🔮 Pronóstico de Ventas</h2>
+    <img src="{{ url_for('static', filename=img_paths.pronostico) }}" alt="Pronóstico de Ventas">
+    
+    <h2>📄 Resumen del Análisis</h2>
+    <div class="summary">
+        {% for key, value in resumen.items() %}
+            <p><b>{{ key }}:</b> {{ value }}</p>
+        {% endfor %}
+    </div>
+    
+    <a href="{{ url_for('index') }}" class="button">Regresar</a>
+    <a href="{{ url_for('descargar_pdf', pdf_filename=pdf_filename) }}" class="button">Descargar Análisis en PDF</a>
+</body>
+</html>

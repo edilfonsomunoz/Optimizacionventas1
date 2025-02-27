@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Archivo de Ventas</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        .button { display: inline-block; padding: 10px 20px; margin: 10px;
+                  text-decoration: none; background-color: #007BFF; color: white;
+                  border-radius: 5px; cursor: pointer; border: none; }
+        .button:hover { background-color: #0056b3; }
+        table { margin: 20px auto; border-collapse: collapse; width: 80%; }
+        th, td { border: 1px solid black; padding: 8px; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Subir Archivo de Ventas</h1>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <button type="submit" class="button">Subir Archivo</button>
+    </form>
+    {% if data is not none %}
+        <h2>Vista previa de los datos cargados</h2>
+        <table>
+            <tr>
+                {% for col in data.columns %}
+                    <th>{{ col }}</th>
+                {% endfor %}
+            </tr>
+            {% for row in data.itertuples(index=False) %}
+                <tr>
+                    {% for value in row %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+        <a href="{{ url_for('analizar', filename=filename) }}" class="button">Analizar</a>
+    {% else %}
+        <p>No hay datos cargados aún.</p>
+    {% endif %}
+</body>
+</html>
